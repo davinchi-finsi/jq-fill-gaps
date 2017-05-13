@@ -1,0 +1,10 @@
+﻿
+.hz-chat-fake, .hz-chat-fake-default {
+    width: 400px;
+    height: 730px;
+    border: 1px solid #808080;
+}
+
+.hz-chat-fake-conversation {
+    background-color: #f4f4f4;
+}

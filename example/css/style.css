@@ -1,0 +1,14 @@
+﻿/* Center the demo */
+ 
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    background-color:#fff;
+    padding:0px;
+    margin:0px;
+}
+
+ 
+ 
