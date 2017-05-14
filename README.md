@@ -36,3 +36,7 @@ Así pues, el texto anterior quedaría de la siguiente manera:
 En el ejemplo, el usuario tendrá que buscar las palabras: **consectetur**, **incididunt** y **ullamco**.
 
 La aplicación colocará las palabras aleatoriamente.
+
+Para ejecutar el recursos lo haremos así:
+
+    $(".hz-fill-gaps").fillgaps();
