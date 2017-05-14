@@ -2,13 +2,14 @@
  
 
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center; 
+
     background-color:#fff;
     padding:0px;
     margin:0px;
+    font-family: Merriweather;
+    font-size: 12px;
 }
 
- 
- 
+.hz-fill-gaps{
+    margin: 10px;
+}

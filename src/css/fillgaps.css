@@ -1,10 +1,61 @@
 ﻿
-.hz-chat-fake, .hz-chat-fake-default {
-    width: 400px;
-    height: 730px;
-    border: 1px solid #808080;
+.hz-fill-gaps, .hz-fill-gaps-default {
+    line-height: 30px;
 }
 
-.hz-chat-fake-conversation {
+.hz-fill-gaps-gap {
     background-color: #f4f4f4;
+}
+
+.hz-fill-gaps-gaps_origin{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    border:1px solid #ccc;
+    margin: 20px 0px;
+}
+.hz-fill-gaps-gap_origin:hover {
+    cursor:move;
+}
+
+
+.hz-fill-gaps-gap_origin{
+    flex-grow: 1;
+    text-align: center;
+    margin:0px 5px;
+
+}
+
+.hz-fill-gaps-gap_destiny {
+    border-bottom: 1px dashed #ccc;
+}
+
+
+.gap_empty{
+    padding: 0 30px;
+}
+.hover_destiny{
+    background-color: #ccc;
+}
+.hz-gap-evaluate-ko{
+    color: red;
+}
+hz-gap-evaluate-ko:after {
+    content: '\f072';
+    font-family: FontAwesome;
+    font-size: 10px;
+}
+
+.hz-gap-evaluate-ok{
+    color: green;
+}
+
+hz-gap-evaluate-ok:after {
+    content: '\f072';
+    font-family: FontAwesome;
+    font-size: 10px;
+}
+.hz-gap-filled{
+    padding:0px;
 }

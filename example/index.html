@@ -4,22 +4,42 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>jfFillgaps</title>
     <meta charset="utf-8" />
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather|Oswald" rel="stylesheet">
 
     <link href="../src/css/fillgaps.css" rel="stylesheet" />
     <link href="css/style.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="hz-fill-gaps"></div>
+<h1>hz-fill-gaps</h1>
+
+    <div class="hz-fill-gaps">
+        <div class="hz-fill-gaps-slide">
+        Esta es mi frase y mi <span class="hz-fill-gaps-gap">hueco</span>
+            y aquí hay un segundo <span class="hz-fill-gaps-gap">huequito</span>
+        y aquí pongo <span class="hz-fill-gaps-gap">atrás</span>
+        </div>
+        <div class="hz-fill-gaps-slide">
+            Esta es mi frase y mi <span class="hz-fill-gaps-gap">hueco</span>
+            y aquí hay un segundo <span class="hz-fill-gaps-gap">huequito</span>
+            y aquí pongo <span class="hz-fill-gaps-gap">atrás</span>
+        </div>
+        <div class="hz-fill-gaps-slide">
+            Esta es mi frase y mi <span class="hz-fill-gaps-gap">hueco</span>
+            y aquí hay un segundo <span class="hz-fill-gaps-gap">huequito</span>
+            y aquí pongo <span class="hz-fill-gaps-gap">atrás</span>
+        </div>
+    </div>
 
 
     <script src="../src/jqFillgaps.js"></script>
     <script>
-        $(".hz-chat-fake").chatfake({
-            data_json: "data/fillgaps.json"
+        $(".hz-fill-gaps").fillgaps({
 
         });
 
