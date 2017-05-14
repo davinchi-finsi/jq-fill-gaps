@@ -11,3 +11,13 @@ En primer lugar tenemos que añadir a un elemento html (normalmente un div) la c
     <div class="hz-fill-gaps"></div>
 
 A continuación escribimos dentro el texto pudiendo utilizar elementos html.
+
+    <div class="hz-fill-gaps">Lorem ipsum dolor sit amet, 
+    consectetur adipiscing elit, sed do eiusmod tempor incididunt 
+    ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+    quis nostrud exercitation ullamco laboris nisi ut aliquip 
+    ex ea commodo consequat.
+    </div>
+
+Una vez que hemos decidido cuáles son las palabras que vamos a utilizar para que el usuario busque, las metemos dentro de un span con la clase **hz-fill-gaps-gap**. Quedando así: 
+    <span class="hz-fill-gaps-gap">palabra</span>
