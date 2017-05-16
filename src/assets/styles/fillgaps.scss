@@ -1,9 +1,9 @@
-﻿
-.hz-fill-gaps, .hz-fill-gaps-default {
-    line-height: 30px;
+﻿@import "./function";
+.hz-fill-gaps{
+    line-height: em(30);
 }
 
-.hz-fill-gaps-gap {
+.hz-fill-gaps__gap {
     background-color: #f4f4f4;
 }
 
