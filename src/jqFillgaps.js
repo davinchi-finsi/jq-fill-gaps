@@ -6,9 +6,9 @@ $.widget("hz.fillgaps", {
     * @memberof fillgaps
     */
     NAMESPACE: "fillgaps",
-    ON_FILLGAPS_START: "fillgaps_start",
-    ON_FILLGAPS_OVER: 'fillgaps_over',
-    ON_FILLGAPS_COMPLETED: 'fillgaps_completed',
+    ON_FILLGAPS_START: "fillgaps:start",
+    ON_FILLGAPS_OVER: 'fillgaps:over',
+    ON_FILLGAPS_COMPLETED: 'fillgaps:completed',
     ON_FILLGAPS_OK: 'fillgaps_ok',
     CLASS_GAPS: 'hz-fill-gaps-gap',
     CLASS_GAPS_OK: '.hz-gap-evaluate-ko',

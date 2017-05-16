@@ -2,7 +2,7 @@
   "name": "jq-fillgaps",
   "version": "0.1.0",
   "description": "Ejercicio para completar huecos arrastrando palabras disponibles.",
-  "main": "src/jsFillgaps.js",
+  "main": "src/jqFillgaps.js",
   "directories": {
     "example": "example"
   },
@@ -17,8 +17,8 @@
   "license": "MIT",
   "homepage": "https://bitbucket.org/davinchi_finsi/jsfillgaps#readme",
   "dependencies": {
-    "easeljs": "0.0.0",
-    "jquery": "^3.2.1"
+    "jquery": "^3.2.1",
+    "jquery-ui-dist": "^1.12.1"
   },
   "publishConfig": {
     "access": "public"
