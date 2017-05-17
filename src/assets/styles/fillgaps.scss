@@ -1,61 +1,62 @@
 ﻿@import "./function";
-.hz-fill-gaps{
-    line-height: em(30);
+
+.hz-fillgaps, .hz-fillgaps--default {
+    line-height: 30px;
 }
 
-.hz-fill-gaps__gap {
+.hz-fillgaps__gap {
     background-color: #f4f4f4;
 }
 
-.hz-fill-gaps-gaps_origin{
+.hz-fillgaps__words{
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
 
     border:1px solid #ccc;
-    margin: 20px 0px;
+    margin: 20px 0;
 }
-.hz-fill-gaps-gap_origin:hover {
+.hz-fillgaps__word:hover {
     cursor:move;
 }
 
 
-.hz-fill-gaps-gap_origin{
+.hz-fillgaps__word{
     flex-grow: 1;
     text-align: center;
     margin:0px 5px;
 
 }
 
-.hz-fill-gaps-gap_destiny {
+.hz-fillgaps__gap--destiny {
     border-bottom: 1px dashed #ccc;
 }
 
 
-.gap_empty{
+.hz-fillgaps__gap--empty{
     padding: 0 30px;
 }
 .hover_destiny{
     background-color: #ccc;
 }
-.hz-gap-evaluate-ko{
+.hz-fillgaps__gap--ko{
     color: red;
 }
-hz-gap-evaluate-ko:after {
+hz-fillgaps__gap--ko:after {
     content: '\f072';
     font-family: FontAwesome;
     font-size: 10px;
 }
 
-.hz-gap-evaluate-ok{
+.hz-fillgaps__gap--ok{
     color: green;
 }
 
-hz-gap-evaluate-ok:after {
+.hz-fillgaps__gap--ok:after {
     content: '\f072';
     font-family: FontAwesome;
     font-size: 10px;
 }
-.hz-gap-filled{
+.hz-fillgaps__gap--filled{
     padding:0px;
 }

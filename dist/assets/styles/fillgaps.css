@@ -1,1 +1,70 @@
-.hz-fill-gaps{line-height:1.875em}.hz-fill-gaps__gap{background-color:#f4f4f4}.hz-fill-gaps-gaps_origin{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;-ms-flex-wrap:wrap;flex-wrap:wrap;border:1px solid #ccc;margin:20px 0px}.hz-fill-gaps-gap_origin:hover{cursor:move}.hz-fill-gaps-gap_origin{-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;text-align:center;margin:0px 5px}.hz-fill-gaps-gap_destiny{border-bottom:1px dashed #ccc}.gap_empty{padding:0 30px}.hover_destiny{background-color:#ccc}.hz-gap-evaluate-ko{color:red}hz-gap-evaluate-ko:after{content:'\f072';font-family:FontAwesome;font-size:10px}.hz-gap-evaluate-ok{color:green}hz-gap-evaluate-ok:after{content:'\f072';font-family:FontAwesome;font-size:10px}.hz-gap-filled{padding:0px}
+.hz-fillgaps, .hz-fillgaps--default {
+  line-height: 30px;
+}
+
+.hz-fillgaps__gap {
+  background-color: #f4f4f4;
+}
+
+.hz-fillgaps__words {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  border: 1px solid #ccc;
+  margin: 20px 0;
+}
+
+.hz-fillgaps__word:hover {
+  cursor: move;
+}
+
+.hz-fillgaps__word {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  text-align: center;
+  margin: 0px 5px;
+}
+
+.hz-fillgaps__gap--destiny {
+  border-bottom: 1px dashed #ccc;
+}
+
+.hz-fillgaps__gap--empty {
+  padding: 0 30px;
+}
+
+.hover_destiny {
+  background-color: #ccc;
+}
+
+.hz-fillgaps__gap--ko {
+  color: red;
+}
+
+hz-fillgaps__gap--ko:after {
+  content: '\f072';
+  font-family: FontAwesome;
+  font-size: 10px;
+}
+
+.hz-fillgaps__gap--ok {
+  color: green;
+}
+
+.hz-fillgaps__gap--ok:after {
+  content: '\f072';
+  font-family: FontAwesome;
+  font-size: 10px;
+}
+
+.hz-fillgaps__gap--filled {
+  padding: 0px;
+}
+
+/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZpbGxnYXBzLmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGtCQUFrQjtDQUNuQjs7QUFFRDtFQUNFLDBCQUEwQjtDQUMzQjs7QUFFRDtFQUNFLHFCQUFjO0VBQWQscUJBQWM7RUFBZCxjQUFjO0VBQ2QseUJBQXdCO01BQXhCLHNCQUF3QjtVQUF4Qix3QkFBd0I7RUFDeEIsb0JBQWdCO01BQWhCLGdCQUFnQjtFQUNoQix1QkFBdUI7RUFDdkIsZUFBZTtDQUNoQjs7QUFFRDtFQUNFLGFBQWE7Q0FDZDs7QUFFRDtFQUNFLG9CQUFhO01BQWIscUJBQWE7VUFBYixhQUFhO0VBQ2IsbUJBQW1CO0VBQ25CLGdCQUFnQjtDQUNqQjs7QUFFRDtFQUNFLCtCQUErQjtDQUNoQzs7QUFFRDtFQUNFLGdCQUFnQjtDQUNqQjs7QUFFRDtFQUNFLHVCQUF1QjtDQUN4Qjs7QUFFRDtFQUNFLFdBQVc7Q0FDWjs7QUFFRDtFQUNFLGlCQUFpQjtFQUNqQix5QkFBeUI7RUFDekIsZ0JBQWdCO0NBQ2pCOztBQUVEO0VBQ0UsYUFBYTtDQUNkOztBQUVEO0VBQ0UsaUJBQWlCO0VBQ2pCLHlCQUF5QjtFQUN6QixnQkFBZ0I7Q0FDakI7O0FBRUQ7RUFDRSxhQUFhO0NBQ2QiLCJmaWxlIjoiYXNzZXRzL3N0eWxlcy9maWxsZ2Fwcy5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuaHotZmlsbGdhcHMsIC5oei1maWxsZ2Fwcy0tZGVmYXVsdCB7XG4gIGxpbmUtaGVpZ2h0OiAzMHB4O1xufVxuXG4uaHotZmlsbGdhcHNfX2dhcCB7XG4gIGJhY2tncm91bmQtY29sb3I6ICNmNGY0ZjQ7XG59XG5cbi5oei1maWxsZ2Fwc19fd29yZHMge1xuICBkaXNwbGF5OiBmbGV4O1xuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgZmxleC13cmFwOiB3cmFwO1xuICBib3JkZXI6IDFweCBzb2xpZCAjY2NjO1xuICBtYXJnaW46IDIwcHggMDtcbn1cblxuLmh6LWZpbGxnYXBzX193b3JkOmhvdmVyIHtcbiAgY3Vyc29yOiBtb3ZlO1xufVxuXG4uaHotZmlsbGdhcHNfX3dvcmQge1xuICBmbGV4LWdyb3c6IDE7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgbWFyZ2luOiAwcHggNXB4O1xufVxuXG4uaHotZmlsbGdhcHNfX2dhcC0tZGVzdGlueSB7XG4gIGJvcmRlci1ib3R0b206IDFweCBkYXNoZWQgI2NjYztcbn1cblxuLmh6LWZpbGxnYXBzX19nYXAtLWVtcHR5IHtcbiAgcGFkZGluZzogMCAzMHB4O1xufVxuXG4uaG92ZXJfZGVzdGlueSB7XG4gIGJhY2tncm91bmQtY29sb3I6ICNjY2M7XG59XG5cbi5oei1maWxsZ2Fwc19fZ2FwLS1rbyB7XG4gIGNvbG9yOiByZWQ7XG59XG5cbmh6LWZpbGxnYXBzX19nYXAtLWtvOmFmdGVyIHtcbiAgY29udGVudDogJ1xcZjA3Mic7XG4gIGZvbnQtZmFtaWx5OiBGb250QXdlc29tZTtcbiAgZm9udC1zaXplOiAxMHB4O1xufVxuXG4uaHotZmlsbGdhcHNfX2dhcC0tb2sge1xuICBjb2xvcjogZ3JlZW47XG59XG5cbi5oei1maWxsZ2Fwc19fZ2FwLS1vazphZnRlciB7XG4gIGNvbnRlbnQ6ICdcXGYwNzInO1xuICBmb250LWZhbWlseTogRm9udEF3ZXNvbWU7XG4gIGZvbnQtc2l6ZTogMTBweDtcbn1cblxuLmh6LWZpbGxnYXBzX19nYXAtLWZpbGxlZCB7XG4gIHBhZGRpbmc6IDBweDtcbn1cbiJdfQ== */

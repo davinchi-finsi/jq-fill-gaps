@@ -6,19 +6,40 @@ $.widget("hz.fillgaps", {
      * @memberof fillgaps
      */
     NAMESPACE: "fillgaps",
+    GAP_STATE:{
+        KO:0,
+        OK:1
+    },
     ON_FILLGAPS_START: "fillgaps:start",
     ON_FILLGAPS_OVER: 'fillgaps:over',
     ON_FILLGAPS_COMPLETED: 'fillgaps:completed',
-    ON_FILLGAPS_OK: 'fillgaps_ok',
-    CLASS_GAPS: 'hz-fill-gaps-gap',
-    CLASS_GAPS_OK: '.hz-gap-evaluate-ko',
-
+    ON_FILLGAPS_OK: 'fillgaps:ok',
+    CLASS_GAPS: 'hz-fillgaps__gap',
+    CLASS_GAP_WORDS:'hz-fillgaps__words',
+    CLASS_GAP_WORD:'hz-fillgaps__word',
+    CLASS_GAP_DESTINY: 'hz-fillgaps__gap--destiny',
+    CLASS_GAP_EMPTY: 'hz-fillgaps__gap--empty',
+    CLASS_GAP_ORIGIN: 'hz-fill-gaps-gaps_origin',
+    CLASS_GAP_HOVER_DESTINY:'hover_destiny',
+    CLASS_GAP_FILLED:'hz-fillgaps__gap--filled',
+    CLASS_GAP_STATE_OK:'hz-fillgaps__gap--ok',
+    CLASS_GAP_STATE_KO:'hz-fillgaps__gap--ko',
+    QUERY_GAP: '.hz-fillgaps__gap',
+    QUERY_GAP_ORIGIN: '.hz-fill-gaps-gap_origin',
+    QUERY_GAP_DESTINY: '.hz-fillgaps__gap--destiny',
+    QUERY_GAP_WORD:'.hz-fillgaps__word',
+    QUERY_GAP_WORDS:'.hz-fillgaps__words',
+    QUERY_GAP_FILLED:'.hz-fillgaps__gap--filled',
+    QUERY_GAP_STATE_OK:'.hz-fillgaps__gap--ok',
+    ATTR_GAP_WORD:'data-hz-fillgaps-word',
+    ATTR_GAP_DESTINY:'data-hz-fillgaps-gap-destiny',
+    ATTR_GAP_LENGTH: 'data-hz-fillgaps-gap-lenght',
     // Default options.
     options: {
         immediate_feedback: true,
         classes: {
-            'hz-fill-gaps': 'hz-fill-gaps-default',
-            'hz-fill-gaps-gap': 'hz-fill-gaps-gap'
+            'hz-fillgaps': 'hz-fillgaps--default',
+            'hz-fillgaps__gap':'hz-fillgaps__gap'
         }
     },
 
@@ -49,34 +70,37 @@ $.widget("hz.fillgaps", {
     _buildHtml: function () {
 
         // obtenemos todos los gaps que hay
-        let _gaps = this.element.find('.hz-fill-gaps-gap')
+        let _gaps = this.element.find(this.QUERY_GAP);
 
         // Guardamos el número total de gaps
-        this._numberGaps = $('.hz-fill-gaps-gap').length;
+        this._numberGaps = _gaps.length;
 
         // Si no existe ningún gap lanzamos un error
         if (this._numberGaps == 0) {
-            console.error('No se ha encontrado ningún gap. Necesitas usar la clase hz-fill-gaps-gap');
+            throw 'No se ha encontrado ningún gap. Necesitas usar la clase ' + this.QUERY_GAP;
         } else {
-
-            for (let i = 0; i < _gaps.length; i++) {
+            for (let gapIndex = 0; gapIndex < _gaps.length; gapIndex++) {
+                let currentGap = $(_gaps[gapIndex]),
+                    gapText = currentGap.text();
                 //Guardamos las palabras y el hueco que le corresponde
-                this._gaps.push({'idGap': i, 'word': _gaps[i].innerText});
 
                 // Reemplazamos las palabras dejando el hueco para colocarla y añadimos
                 // una interrogación para que el usuario pueda colocarla
                 // añadimos las clases
-                $(_gaps[i])
-                    .addClass('ui-droppable hz-fill-gaps-gap_destiny');
-                // añadimos el id
-                $(_gaps[i])
-                    .attr('data-hz-fill-gaps-gap_destiny', i);
-                // añadimos la longitud de la palabra por si queremos hacer el ancho del hueco en función de la misma
-                $(_gaps[i])
-                    .attr('data-hz-fill-gaps-gap_lenght', _gaps[i].innerText.length);
-                // pintamos dentro la interrogación
-                $(_gaps[i])
-                    .html('<span class="gap_empty">?</span>');
+                currentGap
+                    .addClass('ui-droppable ' + this.CLASS_GAP_DESTINY)
+                    // añadimos el id
+                    .attr(this.ATTR_GAP_DESTINY, gapIndex)
+                    // añadimos la longitud de la palabra por si queremos hacer el ancho del hueco en función de la misma
+                    .attr(this.ATTR_GAP_LENGTH, currentGap.text().length)
+                    // pintamos dentro la interrogación
+                    .html(`<span class="${this.CLASS_GAP_EMPTY}">?</span>`);
+                let newGap = {
+                    'idGap': gapIndex,
+                    'word': gapText,
+                    '$gap':currentGap
+                };
+                this._gaps.push(newGap);
             }
 
             this._drawWords();
@@ -89,14 +113,17 @@ $.widget("hz.fillgaps", {
     _drawWords: function () {
 
         // creamos el contenedor donde irán ubicadas las palabras
-        let html = '<div class="hz-fill-gaps-gaps_origin">';
+        let html = $('<div class="' + this.CLASS_GAP_WORDS + '"></div>');
 
         let arrGaps = this._shuffleArray(this._gaps);
         // recorremos las palabras que tenemos almacenadas
-        for (let i = 0; i < arrGaps.length; i++) {
-            html += `<div class="hz-fill-gaps-gap_origin ui-draggable" data-hz-fill-gaps-gap_origin="${arrGaps[i].idGap}">${arrGaps[i].word}</div>`;
+        for (let gapIndex = 0; gapIndex < arrGaps.length; gapIndex++) {
+            let currentGap = arrGaps[gapIndex];
+            let $word = $(`<div class="${this.CLASS_GAP_WORD} ui-draggable" ${this.ATTR_GAP_WORD}="${currentGap.idGap}">${currentGap.word}</div>`);
+            $word.data("gapId",currentGap.idGap);
+            currentGap.$word = $word;
+            html.append($word);
         }
-        html += '</div>';
 
         // las añadimos al elemento principal
         this.element.prepend(html);
@@ -105,113 +132,96 @@ $.widget("hz.fillgaps", {
 
     _createEvents: function () {
         let that = this;
-
+        //listener click en palabras fallidas
+        this.element.off('click.'+this.NAMESPACE).on('click.'+this.NAMESPACE, this.QUERY_GAP_KO,{instance:this},this._onKoGapClick);
         // habilitamos que las palabras se puedan mover
-        $('.hz-fill-gaps-gap_origin')
+        this.element.find(this.QUERY_GAP_WORD)
             .draggable(
                 {
                     revert: "valid",
                     containment: "#actividad"
-                });
+                }
+            );
 
 
         // habilitamos que los huecos puedan recibir palabras
-        $('.hz-fill-gaps-gap_destiny')
+        this.element.find(this.QUERY_GAP_DESTINY)
             .droppable({
-                           hoverClass: "hover_destiny",
-                           drop: function (event, ui) {
-                               that._handleDrop(event, ui, this);
-                           }
-                       });
+               hoverClass: this.CLASS_GAP_HOVER_DESTINY,
+               drop: function (event, ui) {
+                    that._handleDrop(event, ui, this);
+                }
+           });
 
     },
 
 
     _handleDrop: function (event, ui, _this) {
-
-        let that = this;
-        let origin = ui.helper
-        let destiny = $(_this)
-
-        let word = origin.html();
-        let idOrigin = origin.attr('data-hz-fill-gaps-gap_origin');
-        let idDestiny = destiny.attr('data-hz-fill-gaps-gap_destiny');
-
+        let $word = ui.helper;
+        let $gap = $(_this);
+        let wordGapId = $word.data("gapId");
+        let idDestiny = $gap.attr(this.ATTR_GAP_DESTINY);
+        let wordGap = this._getGapById(wordGapId);
+        let word = wordGap.word;
         // comprobamos si ha acertado
-        let evaluate = 'ko';
-
+        let evaluate = this.GAP_STATE.KO;
         // Evaluamos si el id de la palabra origen corresponde con la del hueco
         // o si la palabra que queremos ubicar se corresponde con la del hueco.
         // De esta manera se pueden colocar en un mismo hueco palabras que son idénticas.
         // Si en dos huecos está la misma palabra, podemos intercambiarlas y ponerlas en
         // cualquiera de los dos huecos
-        if (idOrigin == idDestiny || word == that._getWord(idDestiny)) {
-            evaluate = 'ok';
+        if (wordGapId == idDestiny) {
+            evaluate = this.GAP_STATE.OK;
         }
-
         // colocamos la palabra en el hueco
-        destiny.html(`<span class="hz-gap-filled hz-gap-evaluate-${evaluate}">${word}</span>`);
+        $gap.addClass(this.CLASS_GAP_FILLED).addClass(evaluate === this.GAP_STATE.OK ? this.CLASS_GAP_STATE_OK : this.CLASS_GAP_STATE_KO).text(word);
+        $gap.data("currentWord",wordGapId);
         // elimniamos la palabra del origen
-        origin.remove();
-
-        // si la palabra es errónea, se le da opción a que la vuelva a recolocar
-        if (evaluate == 'ko') {
-            that._handleGapFilled(idOrigin);
-        }
-
+        wordGap.$word = $word.detach();
         // evaluamos si se ha terminado el ejercicio
-        that._numberGapsFilled = $('.hz-gap-filled').length;
-        that._numberGapsOK = $('.hz-gap-evaluate-ok').length;
+        this._numberGapsFilled = this.element.find(this.QUERY_GAP_FILLED).length;
+        this._numberGapsOK = this.element.find(this.QUERY_GAP_STATE_OK).length;
 
 
-        if (that._numberGapsFilled == that._numberGaps) {
-            that._trigger(this.ON_FILLGAPS_COMPLETED);
+        if (this._numberGapsFilled == this._numberGaps) {
+            this._trigger(this.ON_FILLGAPS_COMPLETED);
         }
-        if (that._numberGapsOK == that._numberGaps) {
-            that._trigger(this.ON_FILLGAPS_OK);
-            that.element.find('.hz-fill-gaps-gaps_origin')
+        if (this._numberGapsOK == this._numberGaps) {
+            this._trigger(this.ON_FILLGAPS_OK);
+            this.element.find(this.QUERY_GAP_WORDS)
                 .remove();
         }
     },
+    _onKoGapClick:function(e){
+        let instance = e.data.instance,
+            $gap = $(e.target),
+            wordId = $gap.data("currentWord"),
+            gap = instance._getGapById(wordId)
+        $gap
+            .removeClass(`${instance.CLASS_GAP_STATE_KO} ${instance.CLASS_GAP_FILLED}`)
+            .addClass(instance.CLASS_GAP_EMPTY)
+            .text('?');
 
-    _handleGapFilled: function (origin) {
-        var that = this;
-
-        //Recogemos
-        let _gaps_ko = this.element.find(this.CLASS_GAPS_OK);
-        let word = '';
-
-        _gaps_ko.on('click', function () {
-            word = $(this)
-                .html();
-            $(this)
-                .removeClass('hz-gap-filled hz-gap-evaluate-ko');
-            $(this)
-                .addClass('gap_empty')
-                .html('?');
-
-            //Añadimos el gap inicial para poder volver a generarlo
-            if (word != '?') {
-                let _gaps_origin = that.element.find('.hz-fill-gaps-gaps_origin');
-                let _gap = `<div class="hz-fill-gaps-gap_origin ui-draggable" data-hz-fill-gaps-gap_origin="${origin}">${word}</div>`;
-                $(_gaps_origin)
-                    .append(_gap);
-                that._createEvents();
-            }
-        });
-
+        //Añadimos el gap inicial para poder volver a generarlo
+        if (gap.word != '?') {
+            let _gaps_origin = instance.element.find(instance.QUERY_GAP_WORDS);
+            _gaps_origin.append(gap.$word);
+        }
     },
-
     /*
      * Obtiene la palabra que corresponde al hueco de destino seleccionado
      */
-    _getWord: function (idDestiny) {
-        var gaps = this._gaps;
-        for (let i = 0; i < gaps.length; i++) {
-            if (idDestiny == gaps[i].idGap) {
-                return gaps[i].word;
+    _getGapById: function (id) {
+        var gaps = this._gaps,
+            result;
+        for (let gapIndex = 0; gapIndex < gaps.length; gapIndex++) {
+            let currentGap = gaps[gapIndex];
+            if (id == currentGap.idGap) {
+                result = currentGap;
+                gapIndex = gaps.length;
             }
         }
+        return result;
     },
 
     /*
@@ -219,10 +229,10 @@ $.widget("hz.fillgaps", {
      *  @params array
      */
     _shuffleArray: function (array) {
-        for (var i = array.length - 1; i > 0; i--) {
-            var j = Math.floor(Math.random() * (i + 1));
-            var temp = array[i];
-            array[i] = array[j];
+        for (var positionIndex = array.length - 1; positionIndex > 0; positionIndex--) {
+            var j = Math.floor(Math.random() * (positionIndex + 1));
+            var temp = array[positionIndex];
+            array[positionIndex] = array[j];
             array[j] = temp;
         }
         return array;
