@@ -157,39 +157,43 @@ $.widget("hz.fillgaps", {
 
 
     _handleDrop: function (event, ui, _this) {
-        let $word = ui.helper;
-        let $gap = $(_this);
-        let wordGapId = $word.data("gapId");
-        let idDestiny = $gap.attr(this.ATTR_GAP_DESTINY);
-        let wordGap = this._getGapById(wordGapId);
-        let word = wordGap.word;
-        // comprobamos si ha acertado
-        let evaluate = this.GAP_STATE.KO;
-        // Evaluamos si el id de la palabra origen corresponde con la del hueco
-        // o si la palabra que queremos ubicar se corresponde con la del hueco.
-        // De esta manera se pueden colocar en un mismo hueco palabras que son idénticas.
-        // Si en dos huecos está la misma palabra, podemos intercambiarlas y ponerlas en
-        // cualquiera de los dos huecos
-        if (wordGapId == idDestiny) {
-            evaluate = this.GAP_STATE.OK;
-        }
-        // colocamos la palabra en el hueco
-        $gap.addClass(this.CLASS_GAP_FILLED).addClass(evaluate === this.GAP_STATE.OK ? this.CLASS_GAP_STATE_OK : this.CLASS_GAP_STATE_KO).text(word);
-        $gap.data("currentWord",wordGapId);
-        // elimniamos la palabra del origen
-        wordGap.$word = $word.detach();
-        // evaluamos si se ha terminado el ejercicio
-        this._numberGapsFilled = this.element.find(this.QUERY_GAP_FILLED).length;
-        this._numberGapsOK = this.element.find(this.QUERY_GAP_STATE_OK).length;
+        if(!this.isDisabled()) {
+            let $word = ui.helper;
+            let $gap = $(_this);
+            let wordGapId = $word.data("gapId");
+            let idDestiny = $gap.attr(this.ATTR_GAP_DESTINY);
+            let wordGap = this._getGapById(wordGapId);
+            let word = wordGap.word;
+            // comprobamos si ha acertado
+            let evaluate = this.GAP_STATE.KO;
+            // Evaluamos si el id de la palabra origen corresponde con la del hueco
+            // o si la palabra que queremos ubicar se corresponde con la del hueco.
+            // De esta manera se pueden colocar en un mismo hueco palabras que son idénticas.
+            // Si en dos huecos está la misma palabra, podemos intercambiarlas y ponerlas en
+            // cualquiera de los dos huecos
+            if (wordGapId == idDestiny) {
+                evaluate = this.GAP_STATE.OK;
+            }
+            // colocamos la palabra en el hueco
+            $gap.addClass(this.CLASS_GAP_FILLED).addClass(evaluate === this.GAP_STATE.OK ? this.CLASS_GAP_STATE_OK : this.CLASS_GAP_STATE_KO).text(word);
+            $gap.data("currentWord", wordGapId);
+            // elimniamos la palabra del origen
+            wordGap.$word = $word.detach();
+            // evaluamos si se ha terminado el ejercicio
+            this._numberGapsFilled = this.element.find(this.QUERY_GAP_FILLED).length;
+            this._numberGapsOK = this.element.find(this.QUERY_GAP_STATE_OK).length;
 
 
-        if (this._numberGapsFilled == this._numberGaps) {
-            this._trigger(this.ON_FILLGAPS_COMPLETED);
-        }
-        if (this._numberGapsOK == this._numberGaps) {
-            this._trigger(this.ON_FILLGAPS_OK);
-            this.element.find(this.QUERY_GAP_WORDS)
-                .remove();
+            if (this._numberGapsFilled == this._numberGaps) {
+                this._trigger(this.ON_FILLGAPS_COMPLETED);
+            }
+            if (this._numberGapsOK == this._numberGaps) {
+                this._trigger(this.ON_FILLGAPS_OK);
+                this.element.find(this.QUERY_GAP_WORDS)
+                    .remove();
+            }
+        }else{
+            event.preventDefault();
         }
     },
     _onKoGapClick:function(e){
@@ -208,6 +212,20 @@ $.widget("hz.fillgaps", {
             _gaps_origin.append(gap.$word);
         }
     },
+
+    disable:function () {
+        this._super();
+        this.element.find(this.QUERY_GAP_WORD).draggable("disable");
+        this.element.find(this.QUERY_GAP_DESTINY).droppable("disable");
+    },
+
+    enable:function () {
+        this._super();
+        this._words = this.element.find(this.QUERY_GAP_DESTINY);
+        this.element.find(this.QUERY_GAP_WORD).draggable("enable");
+        this.element.find(this.QUERY_GAP_DESTINY).droppable("enable");
+    },
+
     /*
      * Obtiene la palabra que corresponde al hueco de destino seleccionado
      */
