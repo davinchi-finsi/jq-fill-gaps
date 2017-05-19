@@ -31,6 +31,7 @@ $.widget("hz.fillgaps", {
     QUERY_GAP_WORDS:'.hz-fillgaps__words',
     QUERY_GAP_FILLED:'.hz-fillgaps__gap--filled',
     QUERY_GAP_STATE_OK:'.hz-fillgaps__gap--ok',
+    QUERY_GAP_STATE_KO:'.hz-fillgaps__gap--ko',
     ATTR_GAP_WORD:'data-hz-fillgaps-word',
     ATTR_GAP_DESTINY:'data-hz-fillgaps-gap-destiny',
     ATTR_GAP_LENGTH: 'data-hz-fillgaps-gap-lenght',
@@ -133,7 +134,7 @@ $.widget("hz.fillgaps", {
     _createEvents: function () {
         let that = this;
         //listener click en palabras fallidas
-        this.element.off('click.'+this.NAMESPACE).on('click.'+this.NAMESPACE, this.QUERY_GAP_KO,{instance:this},this._onKoGapClick);
+        this.element.off('click.'+this.NAMESPACE).on('click.'+this.NAMESPACE, this.QUERY_GAP_STATE_KO,{instance:this},this._onKoGapClick);
         // habilitamos que las palabras se puedan mover
         this.element.find(this.QUERY_GAP_WORD)
             .draggable(
@@ -181,6 +182,7 @@ $.widget("hz.fillgaps", {
             $gap.data("currentWord", wordGapId);
             // elimniamos la palabra del origen
             wordGap.$word = $word.detach();
+            wordGap.moved = true;
             // evaluamos si se ha terminado el ejercicio
             this._numberGapsFilled = this.element.find(this.QUERY_GAP_FILLED).length;
             this._numberGapsOK = this.element.find(this.QUERY_GAP_STATE_OK).length;
@@ -199,19 +201,24 @@ $.widget("hz.fillgaps", {
         }
     },
     _onKoGapClick:function(e){
-        let instance = e.data.instance,
-            $gap = $(e.target),
-            wordId = $gap.data("currentWord"),
-            gap = instance._getGapById(wordId)
-        $gap
-            .removeClass(`${instance.CLASS_GAP_STATE_KO} ${instance.CLASS_GAP_FILLED}`)
-            .addClass(instance.CLASS_GAP_EMPTY)
-            .text('?');
+        let instance = e.data.instance;
+        if(!instance.isDisabled()) {
+            let $gap = $(e.target),
+                wordId = $gap.data("currentWord"),
+                    gap = instance._getGapById(wordId);
+            if(gap.moved == true) {
+                $gap
+                    .removeClass(`${instance.CLASS_GAP_STATE_KO} ${instance.CLASS_GAP_FILLED}`)
+                    .addClass(instance.CLASS_GAP_EMPTY)
+                    .text('?');
 
-        //Añadimos el gap inicial para poder volver a generarlo
-        if (gap.word != '?') {
-            let _gaps_origin = instance.element.find(instance.QUERY_GAP_WORDS);
-            _gaps_origin.append(gap.$word);
+                //Añadimos el gap inicial para poder volver a generarlo
+                if (gap.word != '?') {
+                    let _gaps_origin = instance.element.find(instance.QUERY_GAP_WORDS);
+                    _gaps_origin.append(gap.$word);
+                    gap.moved = false;
+                }
+            }
         }
     },
 
