@@ -1,8 +1,11 @@
 ﻿build
 examples
+example
 node_modules
+gulpfile.js
 bower_components
 .fusebox
+README.md
 .haztivycli.config.ts
 .haztivycli.config.js
 .idea
