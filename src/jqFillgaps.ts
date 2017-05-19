@@ -189,10 +189,10 @@ $.widget("hz.fillgaps", {
 
 
             if (this._numberGapsFilled == this._numberGaps) {
-                this._trigger(this.ON_FILLGAPS_COMPLETED);
+                this.element.trigger(this.ON_FILLGAPS_COMPLETED);
             }
             if (this._numberGapsOK == this._numberGaps) {
-                this._trigger(this.ON_FILLGAPS_OK);
+                this.element.trigger(this.ON_FILLGAPS_OK);
                 this.element.find(this.QUERY_GAP_WORDS)
                     .remove();
             }
