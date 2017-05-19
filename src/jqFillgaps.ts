@@ -155,7 +155,9 @@ $.widget("hz.fillgaps", {
 
     },
 
-
+    isDisabled:function(){
+        return this.options.disabled;
+    },
     _handleDrop: function (event, ui, _this) {
         if(!this.isDisabled()) {
             let $word = ui.helper;
