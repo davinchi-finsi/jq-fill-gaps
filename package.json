@@ -1,6 +1,6 @@
 {
   "name": "jq-fillgaps",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Ejercicio para completar huecos arrastrando palabras disponibles.",
   "main": "dist/jqFillgaps.js",
   "directories": {

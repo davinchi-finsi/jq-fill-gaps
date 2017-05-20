@@ -174,7 +174,9 @@ $.widget("hz.fillgaps", {
             // De esta manera se pueden colocar en un mismo hueco palabras que son idénticas.
             // Si en dos huecos está la misma palabra, podemos intercambiarlas y ponerlas en
             // cualquiera de los dos huecos
-            if (wordGapId == idDestiny) {
+
+            let wordok= this._getGapById(idDestiny).word;
+            if (wordGapId == idDestiny || wordok==word) {
                 evaluate = this.GAP_STATE.OK;
             }
             // colocamos la palabra en el hueco

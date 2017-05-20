@@ -34,7 +34,8 @@
 
 
 .hz-fillgaps__gap--empty{
-    padding: 0 30px;
+    padding: 0 em(30);
+    margin: 0 em(5);
 }
 .hover_destiny{
     background-color: #ccc;
@@ -42,21 +43,12 @@
 .hz-fillgaps__gap--ko{
     color: red;
 }
-hz-fillgaps__gap--ko:after {
-    content: '\f072';
-    font-family: FontAwesome;
-    font-size: 10px;
-}
 
 .hz-fillgaps__gap--ok{
     color: green;
 }
 
-.hz-fillgaps__gap--ok:after {
-    content: '\f072';
-    font-family: FontAwesome;
-    font-size: 10px;
-}
 .hz-fillgaps__gap--filled{
     padding:0px;
+    margin: 0 em(5);
 }

@@ -6,10 +6,24 @@ body {
     background-color:#fff;
     padding:0px;
     margin:0px;
-    font-family: Merriweather;
-    font-size: 12px;
+    font-size: 16px;
+
+}
+h1, h3{
+    text-align: center;
 }
 
-.hz-fill-gaps{
-    margin: 10px;
+.hz-fillgaps{
+    margin: 50px;
+}
+
+.gap{
+    background-color:green;
+    color:#fff;
+    padding:0 5px;
+}
+
+.solution{
+    padding: 0px 50px;
+    line-height: 25px;
 }

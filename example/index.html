@@ -9,22 +9,32 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-    <link href="https://fonts.googleapis.com/css?family=Merriweather|Oswald" rel="stylesheet">
-
     <link href="../dist/assets/styles/fillgaps.css" rel="stylesheet" />
     <link href="css/style.css" rel="stylesheet" />
 </head>
 <body>
+
 <h1>hz-fill-gaps</h1>
 
-<div class="hz-fillgaps">Lorem ipsum dolor sit amet,
+<div class="hz-fillgaps">Lorem <span class="hz-fillgaps__gap">ipsum</span> dolor sit amet,
     <span class="hz-fillgaps__gap">consectetur</span> adipiscing elit,
-                         sed do eiusmod tempor <span class="hz-fillgaps__gap">incididunt </span>
-                         ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                         quis <span class="hz-fillgaps__gap">ullamco</span>laboris
-                         nisi ut aliquip ex ea commodo consequat.
+                         sed do eiusmod tempor <span class="hz-fillgaps__gap">incididunt</span>
+    ut labore et <span class="hz-fillgaps__gap">dolore magna</span> aliqua. Ut enim ad
+    <span class="hz-fillgaps__gap">ipsum</span> veniam,
+                         quis <span class="hz-fillgaps__gap">ullamco</span> laboris
+    nisi ut aliquip ex ea <span class="hz-fillgaps__gap">commodo</span> consequat.
 </div>
+
+<h3>Solution</h3>
+    <div class="solution">Lorem <span class="gap">ipsum</span> dolor
+        sit amet, <span class="gap">consectetur</span> adipiscing elit,
+        sed do eiusmod tempor <span class="gap">incididunt</span> ut
+        labore et <span class="gap">dolore magna</span> aliqua.
+        Ut enim ad <span class="gap">ipsum</span> veniam,
+        quis <span class="gap">ullamco</span> laboris
+        nisi ut aliquip ex ea <span class="gap">commodo</span> consequat.
+    </div>
+
 
     <script src="../dist/jqFillgaps.js"></script>
     <script>
