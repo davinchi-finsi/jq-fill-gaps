@@ -55,7 +55,7 @@
     "gulp-util": "^3.0.7",
     "lite-server": "^2.3.0",
     "merge2": "^1.0.2",
-    "node-sass": "^3.11.2",
+    "node-sass": "^4.14.1",
     "postcss": "^5.2.4",
     "pug": "^2.0.0-beta6",
     "require-dir": "^0.3.0",
