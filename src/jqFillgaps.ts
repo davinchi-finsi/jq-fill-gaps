@@ -139,7 +139,7 @@ $.widget("hz.fillgaps", {
         this.element.find(this.QUERY_GAP_WORD)
             .draggable(
                 {
-                    revert: "valid",
+                    revert: "invalid",
                     containment: "#actividad"
                 }
             );
@@ -163,6 +163,7 @@ $.widget("hz.fillgaps", {
         if(!this.isDisabled()) {
             let $word = ui.helper;
             let $gap = $(_this);
+            $gap.droppable("disable");
             let wordGapId = $word.data("gapId");
             let idDestiny = $gap.attr(this.ATTR_GAP_DESTINY);
             let wordGap = this._getGapById(wordGapId);
@@ -183,7 +184,8 @@ $.widget("hz.fillgaps", {
             $gap.addClass(this.CLASS_GAP_FILLED).addClass(evaluate === this.GAP_STATE.OK ? this.CLASS_GAP_STATE_OK : this.CLASS_GAP_STATE_KO).text(word);
             $gap.data("currentWord", wordGapId);
             // elimniamos la palabra del origen
-            wordGap.$word = $word.detach();
+            //wordGap.$word = $word.detach();
+            wordGap.$word.hide();
             wordGap.moved = true;
             // evaluamos si se ha terminado el ejercicio
             this._numberGapsFilled = this.element.find(this.QUERY_GAP_FILLED).length;
@@ -216,8 +218,17 @@ $.widget("hz.fillgaps", {
 
                 //Añadimos el gap inicial para poder volver a generarlo
                 if (gap.word != '?') {
-                    let _gaps_origin = instance.element.find(instance.QUERY_GAP_WORDS);
-                    _gaps_origin.append(gap.$word);
+                    $gap.droppable("enable");
+                    //let _gaps_origin = instance.element.find(instance.QUERY_GAP_WORDS);
+                    //_gaps_origin.append(gap.$word);
+                    gap.$word
+                        .css({
+                            top: "",
+                            right: "",
+                            bottom: "",
+                            left: ""
+                        })
+                        .show();
                     gap.moved = false;
                 }
             }
